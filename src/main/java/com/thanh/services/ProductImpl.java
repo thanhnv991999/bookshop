@@ -54,8 +54,19 @@ public class ProductImpl implements ProductIF {
     public List<Product> search(String name) {
         return productRepository.getBySearch(name);
     }
-    public List<Product> aaa() {
+    @Override
+    public List<Product> SellALot() {
         return productRepository.sellALot();
+    }
+
+    @Override
+    public List<Product> viewALot() {
+        return productRepository.viewCount();
+    }
+
+    @Override
+    public List<Product> discount() {
+        return productRepository.discount();
     }
 
 }

@@ -92,4 +92,23 @@ public class ProductController {
             return false;
         }
     }
+
+    @RequestMapping("/product/sell")
+    public String sellALot(Model model){
+        List<Product> products=product.SellALot();
+        model.addAttribute("catePrd",products);
+        return "/home/layout";
+    }
+    @RequestMapping("/product/view-a-lot")
+    public String viewCount(Model model){
+        List<Product> products=product.viewALot();
+        model.addAttribute("catePrd",products);
+        return "/home/layout";
+    }
+    @RequestMapping("/product/discount")
+    public String discount(Model model){
+        List<Product> products=product.discount();
+        model.addAttribute("catePrd",products);
+        return "/home/layout";
+    }
 }

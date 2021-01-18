@@ -18,7 +18,7 @@ public class CategoryHandleInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         request.setAttribute("cates",category.lists());
-        request.setAttribute("catePrd",product.lists());
+//        request.setAttribute("catePrd",product.lists());
         return true;
     }
 

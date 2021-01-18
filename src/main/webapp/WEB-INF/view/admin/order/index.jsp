@@ -86,7 +86,7 @@
                             <td>${o.product.name}</td>
                             <td>${o.quantity}</td>
                             <td>${o.price}</td>
-                            <td>${o.discount}</td>
+                            <td>${o.discount}%</td>
                         </tr>
                     </c:forEach>
                     </tbody>

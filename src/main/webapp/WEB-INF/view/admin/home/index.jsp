@@ -20,7 +20,7 @@
     <nav>
       <div class="menu">
         <ul>
-          <li><a href="/admin/home/index">Trang chủ</a></li>
+          <li><a href="/admin/index">Trang chủ</a></li>
           <li><a href="">Quản Lý
             <!--=================Sub menu=================-->
             <ul class="sub-menu">

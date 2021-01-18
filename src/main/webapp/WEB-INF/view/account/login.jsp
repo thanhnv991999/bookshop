@@ -31,26 +31,26 @@
                 <h3 style="color: #cdcd21">${mess}</h3>
             </c:if>
             <%--            <tiles:insertAttribute name="body"/>--%>
-            <form action="/account/login" method="post">
+            <form action="/loginProcess" method="post">
                 <div class="form-group">
                     <label>Username</label>
-                    <input name="username" class="form-control" value="${readCookieUser}">
+                    <input name="username" class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input name="password" class="form-control" type="password" value="${readCookiePass}">
+                    <input name="password" class="form-control" type="password">
                 </div>
-                <div class="form-group">
-                    <div class="form-control">
-                        <input type="checkbox" name="remember">
-                        <label>Remember?</label>
-                    </div>
-                </div>
+<%--                <div class="form-group">--%>
+<%--                    <div class="form-control">--%>
+<%--                        <input type="checkbox" name="remember">--%>
+<%--                        <label>Remember?</label>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
                 <div class="form-group">
                     <button class="btn btn-defalut">Đăng Nhập</button>
                 </div>
-<%--                <input type="hidden" name="${_csrf.parameterName}"--%>
-<%--                       value="${_csrf.token}" />--%>
+                <input type="hidden" name="${_csrf.parameterName}"
+                       value="${_csrf.token}" />
             </form>
         </article>
         <aside class="col-sm-3">

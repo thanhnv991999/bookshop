@@ -1,17 +1,46 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<body>
-<h1>HTTP Status 403 - Access is denied</h1>
 
-<c:choose>
-    <c:when test="${empty username}">
-        <h2>You do not have permission to access this page!</h2>
-    </c:when>
-    <c:otherwise>
-        <h2>Username : ${username} <br/>
-            You do not have permission to access this page!</h2>
-    </c:otherwise>
-</c:choose>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JSP Page</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Creepster|Nosifer|Roboto');
+    </style>
+    <link href="/resources/css/403.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="maincontainer">
+    <div class="bat">
+        <img class="wing leftwing"
+             src="https://www.blissfullemon.com/wp-content/uploads/2018/09/bat-wing.png">
+        <img class="body"
+             src="https://www.blissfullemon.com/wp-content/uploads/2018/09/bat-body.png" alt="bat">
+        <img class="wing rightwing"
+             src="https://www.blissfullemon.com/wp-content/uploads/2018/09/bat-wing.png">
+    </div>
+    <div class="bat">
+        <img class="wing leftwing"
+             src="https://www.blissfullemon.com/wp-content/uploads/2018/09/bat-wing.png">
+        <img class="body"
+             src="https://www.blissfullemon.com/wp-content/uploads/2018/09/bat-body.png" alt="bat">
+        <img class="wing rightwing"
+             src="https://www.blissfullemon.com/wp-content/uploads/2018/09/bat-wing.png">
+    </div>
+    <div class="bat">
+        <img class="wing leftwing"
+             src="https://www.blissfullemon.com/wp-content/uploads/2018/09/bat-wing.png">
+        <img class="body"
+             src="https://www.blissfullemon.com/wp-content/uploads/2018/09/bat-body.png" alt="bat">
+        <img class="wing rightwing"
+             src="https://www.blissfullemon.com/wp-content/uploads/2018/09/bat-wing.png">
+    </div>
+    <img class="foregroundimg" src="https://www.blissfullemon.com/wp-content/uploads/2018/09/HauntedHouseForeground.png" alt="haunted house">
+
+</div>
+<h1 class="errorcode">ERROR 403</h1>
+<div class="errortext">Truy cập bị từ chối !</div>
 
 </body>
 </html>

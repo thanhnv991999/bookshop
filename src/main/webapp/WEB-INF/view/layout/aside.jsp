@@ -35,9 +35,9 @@
         <div class="panel panel-default">
         <div class="panel-heading">Đặc Biệt</div>
         <div class="list-group">
-        <a href="#" class="list-group-item">Bán Chạy</a>
-        <a href="#" class="list-group-item">Xem nhiều</a>
-        <a href="#" class="list-group-item">Giảm Giá</a>
+        <a href="/product/sell" class="list-group-item">Bán Chạy</a>
+        <a href="/product/view-a-lot" class="list-group-item">Xem nhiều</a>
+        <a href="/product/discount" class="list-group-item">Giảm Giá</a>
         </div>
         </div>
 

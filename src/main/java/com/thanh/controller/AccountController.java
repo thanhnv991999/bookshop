@@ -9,15 +9,15 @@ import com.thanh.services.CookieService;
 import com.thanh.services.CustomerImpl;
 import com.thanh.services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
@@ -25,58 +25,46 @@ public class AccountController {
     @Autowired
     CustomerImpl customer;
     @Autowired
-    HttpSession session;
-    @Autowired
     CookieService cookie;
     @Autowired
     MailService mail;
     @Autowired
     HttpServletRequest request;
-    @GetMapping("/account/login")
-    public String login(HttpServletRequest request, Model model){
-        Cookie readCookieU =cookie.read("userId",request);
-        Cookie readCookieP =cookie.read("password",request);
-        if(readCookieU!=null){
-            String readCookieUser = readCookieU.getValue();
-            String readCookiePass = readCookieP.getValue();
-            model.addAttribute("readCookieUser",readCookieUser);
-            model.addAttribute("readCookiePass",readCookiePass);
+    @RequestMapping("/account/login")
+    public String login(@RequestParam(name = "errol", required = false) String errol, Model model){
+        if(errol!=null){
+            model.addAttribute("errol","Đăng nhập thất bại");
         }
         return "/account/login";
     }
 
-    @PostMapping("/account/login")
-    public String login(Model model,
-                        @RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        @RequestParam(value = "remember",defaultValue ="false") boolean remember,
-                        HttpServletResponse response){
-        Customer customerId = customer.findByUserPass(username,password);
-        if(customerId==null){
-            model.addAttribute("errol","Đăng nhập thất bại!");
-        }else if(!customerId.getActivated()){
-            model.addAttribute("mess","Tài Khoản chưa được kích hoạt!");
-        }else {
-            session.setAttribute("user",customerId);
-            //ghi nhớ tài khoản
-            if(remember==true){
-                cookie.create("userId",customerId.getUserName(),30,response);
-                cookie.create("password",customerId.getPassWord(),30,response);
-            }
-            else {
-                cookie.delete("userId",response);
-                cookie.delete("password",response);
-            }
-            return "/home/layout";
-        }
-        return "/account/login";
-    }
-
-    @RequestMapping("/account/logout")
-    public String logout(Model model){
-        session.removeAttribute("user");
-        return "redirect:/home/index";
-    }
+//    @PostMapping("/account/login")
+//    public String login(Model model,
+//                        @RequestParam("username") String username,
+//                        @RequestParam("password") String password,
+//                        @RequestParam(value = "remember",defaultValue ="false") boolean remember,
+//                        HttpServletResponse response){
+//        Customer customerId = customer.findByUserPass(username,password);
+//        if(customerId==null){
+//            model.addAttribute("errol","Đăng nhập thất bại!");
+//        }else if(!customerId.getActivated()){
+//            model.addAttribute("mess","Tài Khoản chưa được kích hoạt!");
+//        }else {
+//            session.setAttribute("user",customerId);
+//            //ghi nhớ tài khoản
+//            if(remember==true){
+//                cookie.create("userId",customerId.getUserName(),30,response);
+//                cookie.create("password",customerId.getPassWord(),30,response);
+//            }
+//            else {
+//                cookie.delete("userId",response);
+//                cookie.delete("password",response);
+//            }
+//            return "redirect:/home/index";
+//
+//        }
+//        return "/account/login";
+//    }
 
     @GetMapping("/account/register")
     public String register(Model model){
@@ -108,7 +96,7 @@ public class AccountController {
         Customer customerActive=customer.findByUserPass(customerDTO.getUserName(),customerDTO.getPassWord());
         //
         String url=request.getRequestURL().toString().replace("register","active/"+customerActive.getId());
-        String body="click để đăng kí <a href='"+url+"'>Xác nhận</a> ";
+        String body="click xác thực thông tin : <a href='"+url+"'>Xác nhận</a> ";
         MailInfo mailInfo = new MailInfo(from,to,subject,body);
         mail.send(mailInfo);
         return "/account/register";
@@ -143,7 +131,9 @@ public class AccountController {
 
     @GetMapping("/account/edit")
     public String edit(Model model){
-        Customer cus= (Customer) session.getAttribute("user");
+        Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) principal.getPrincipal();
+        Customer cus = customer.findByUsername(userDetails.getUsername());
         model.addAttribute("form",cus);
         return "/account/edit";
 
@@ -152,14 +142,15 @@ public class AccountController {
     @PostMapping("/account/edit")
     public String edit(@ModelAttribute("form") Customer cus,Model model){
         customer.update(cus);
-        session.setAttribute("user",cus);
         model.addAttribute("mess","Cập nhật thành công");
         return "/account/edit";
     }
 
     @GetMapping("/account/change")
     public String change(Model model){
-        Customer cus = (Customer) session.getAttribute("user");
+        Authentication principal = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) principal.getPrincipal();
+        Customer cus = customer.findByUsername(userDetails.getUsername());
         CustomerDTO CusDTO = new CustomerDTO();
         model.addAttribute("CusDTO",CusDTO);
         model.addAttribute("user",cus);

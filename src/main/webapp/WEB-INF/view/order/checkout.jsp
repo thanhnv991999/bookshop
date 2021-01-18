@@ -60,7 +60,7 @@
                 </div>
                 <div class="form-group">
                     <label>Địa chỉ</label>
-                    <form:input path="address" class="form-control"/>
+                    <form:input path="address" class="form-control" required="true"/>
                 </div>
                 <div class="form-group">
                     <label>Tổng tiền</label>

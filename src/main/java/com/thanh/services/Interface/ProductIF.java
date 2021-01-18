@@ -12,5 +12,7 @@ public interface ProductIF {
     public void delete(int id);
     public void update(Product product);
     public List<Product> search(String name);
-
+    public List<Product>SellALot();
+    public List<Product>viewALot();
+    public List<Product>discount();
 }

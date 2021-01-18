@@ -30,22 +30,6 @@ public class SpringConfig {
         return dataSource;
 
     }
-
-    @Bean
-    public SessionFactory getSessionFactory() throws IOException {
-        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-        factoryBean.setPackagesToScan(new String[]{"com.thanh.entity"});
-        factoryBean.setDataSource(dataSource());
-        Properties props = factoryBean.getHibernateProperties();
-        props.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        props.setProperty("hibernate.show_sql", "true");
-        props.setProperty("current_session_context_class", "org.springframework.orm.hibernate.SpringSessionContext");
-        factoryBean.afterPropertiesSet();
-        SessionFactory sessionFactory = factoryBean.getObject();
-        return sessionFactory;
-
-    }
-
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManager = new LocalContainerEntityManagerFactoryBean();
