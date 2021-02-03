@@ -1,5 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page pageEncoding="UTF-8" %>
 
 <html lang="en">
@@ -47,7 +48,7 @@
                             <td>${o.id}</td>
                             <td>${o.customer.id}</td>
                             <td>${o.address}</td>
-                            <td>${o.amount}</td>
+                            <td><f:formatNumber value="${o.amount}" pattern="#,###,###"/> VNĐ</td>
                             <td>${o.description}</td>
                             <td>${o.orderDate}</td>
                             <c:if test="${o.status==true}">

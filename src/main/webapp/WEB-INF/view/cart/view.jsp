@@ -25,10 +25,11 @@
         <article class="col-sm-9">
             <%--<tiles:insertAttribute name="body"/>--%>
 
-                <h2>Shopping Cart</h2>
+                <h2>Giỏ hàng</h2>
                 <table class="table">
                     <tr>
                         <th>Id</th>
+                        <th>Ảnh</th>
                         <th>Tên sách</th>
                         <th>Giá</th>
                         <th>Giảm giá</th>
@@ -39,11 +40,12 @@
                         <c:forEach var="p" items="${sessionScope['scopedTarget.cartServices'].items}">
                             <tr data-id="${p.id}" data-price="${p.price}" data-discount="${p.discount}" >
                                 <td>${p.id}</td>
+                                <td><img src="/resources/images/product/${p.image}" width="30px"></td>
                                 <td>${p.name}</td>
-                                <td><f:formatNumber value="${p.price}" pattern="#,###.0 đ"/></td>
+                                <td><f:formatNumber value="${p.price}" pattern="#,###,###"/> VNĐ</td>
                                 <td><f:formatNumber value="${p.discount}" pattern="#"/>%</td>
                                 <td><input id="evc" value="${p.quantity}" type="number" min="1" style="width: 70px"></td>
-                                <td class="amt"><f:formatNumber value="${((p.quantity * p.price)- ((p.quantity * p.price)/100*p.discount))}" pattern="#,###.0 đ"/></td>
+                                <td class="amt"><f:formatNumber value="${((p.quantity * p.price)- ((p.quantity * p.price)/100*p.discount))}" pattern="#,###,###"/></td>
                                 <td>
                                     <button class="btn btn-sm btn-warning btn-cart-remove">
                                         <i class="glyphicon glyphicon-trash"></i>

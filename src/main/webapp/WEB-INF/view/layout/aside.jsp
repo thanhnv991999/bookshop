@@ -6,9 +6,9 @@
             <div class="panel-heading">Giỏ hàng</div>
             <div class="panel-body">
                     <img id="cart-img" src="/resources/images/cart.gif" class="col-sm-5">
-                    <ul class="col-sm-7">
+                    <ul class="col-sm-7" style="list-style-type: circle;">
                             <li><b class="cart-cnt">${cart.count}</b> mặt hàng</li>
-                            <li><b class="cart-amt"><f:formatNumber value="${cart.amount}" pattern="#,###.00"/></b> VNĐ</li>
+                            <li><b class="cart-amt"><f:formatNumber value="${cart.amount}" pattern="#,###,###"/></b> VNĐ</li>
                             <li>
                                <a href="/cart/view">Xem giỏ hàng</a>
                             </li>

@@ -22,7 +22,7 @@
     </nav>
     <div class="row">
         <article class="col-sm-9">
-            <h1>CHECK</h1>
+            <h1>Kiểm tra</h1>
             <hr style="border-top: 1px dashed;margin: 35px 0">
             <table class="table">
                 <tr>
