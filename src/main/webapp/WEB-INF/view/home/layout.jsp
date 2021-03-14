@@ -73,7 +73,7 @@
                                         data-target="#myModal"><i class="glyphicon glyphicon-envelope"></i></button>
                             </div>
 
-                            <p><f:formatNumber value="${c.price}" pattern="#,###.0 đ"/></p>
+                            <p><f:formatNumber value="${c.price}" pattern="#,###,###"/> VNĐ</p>
                         </div>
                     </div>
                 </div>

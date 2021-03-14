@@ -17,31 +17,7 @@
     </div>
   </header>
   <nav class="row">
-    <nav>
-      <div class="menu">
-        <ul>
-          <li><a href="/admin/index">Trang chủ</a></li>
-          <li><a href="">Quản Lý
-            <!--=================Sub menu=================-->
-            <ul class="sub-menu">
-              <li><a href="/admin/category/index">Loại</a></li>
-              <li><a href="/admin/product/index">Sản Phẩm</a></li>
-              <li><a href="/admin/customer/index">khách hàng</a></li>
-              <li><a href="/admin/order/index">Đơn hàng</a></li>
-            </ul>
-          </a>
-          </li>
-          <li><a href="">Thống kê
-            <ul class="sub-menu">
-              <li><a href="#">Mobile</a></li>
-              <li><a href="#">Email</a></li>
-              <li><a href="#">Diễn dàn</a></li>
-              <li><a href="#">Facebook</a></li>
-            </ul>
-          </a></li>
-        </ul>
-      </div>
-    </nav>
+    <jsp:include page="/WEB-INF/view/admin/layout/menu.jsp"/>
   </nav>
   <div class="row">
     <hr style="border-top: 1px dashed;margin: 35px 0">
@@ -64,7 +40,7 @@
           <td>${o.id}</td>
           <td>${o.customer.id}</td>
           <td>${o.address}</td>
-          <td>${o.amount}</td>
+          <td><f:formatNumber value="${o.amount}" pattern="#,###,###"/> VNĐ</td>
           <td>${o.description}</td>
           <td>${o.orderDate}</td>
           <c:if test="${o.status==true}">

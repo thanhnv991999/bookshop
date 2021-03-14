@@ -67,7 +67,7 @@
                         <td>${detail.quantity}</td>
                         <td class="amt"><f:formatNumber value="${((detail.quantity * detail.price)-
                                 ((detail.quantity * detail.price)/100*detail.discount))}"
-                                pattern="#,###.0 đ"/></td>
+                               pattern="#,###,###"/></td>
                     </tr>
                 </c:forEach>
                 </tbody>

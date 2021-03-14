@@ -1,18 +1,17 @@
 package com.thanh.controller;
 
+import com.thanh.convert.ProductConvert;
 import com.thanh.entity.Customer;
 import com.thanh.entity.Order;
 import com.thanh.entity.OrderDetail;
 import com.thanh.entity.Product;
-import com.thanh.services.CartServices;
-import com.thanh.services.CustomerImpl;
-import com.thanh.services.OrderDetailImpl;
-import com.thanh.services.OrderImpl;
+import com.thanh.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,6 +26,8 @@ public class OrderController {
     CustomerImpl customer;
     @Autowired
     CartServices cart;
+    @Autowired
+    ProductImpl productService;
     @Autowired
     OrderImpl orderService;
     @Autowired
@@ -44,11 +45,16 @@ public class OrderController {
         return "/order/checkout";
     }
     @PostMapping("/order/checkout")
+    @Transactional(rollbackFor = Exception.class)
     public String check(@ModelAttribute("form")Order order,Model model)
     {
         Collection<Product> products=cart.getItems();
         List<OrderDetail> orderDetails = new ArrayList<>();
         for(Product product : products){
+//            Optional<Product> productUp = productService.findById(product.getId());
+//            Product productCV = productUp.get();
+//            productCV.setQuantity(productCV.getQuantity() - product.getQuantity());
+//            productService.create(productCV);
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setOrder(order);
             orderDetail.setProduct(product);
@@ -57,6 +63,7 @@ public class OrderController {
             orderDetail.setDiscount(product.getDiscount());
             orderDetails.add(orderDetail);
         }
+
         order.setStatus(false);
         orderService.create(order);
         for(OrderDetail orderDetail:orderDetails){

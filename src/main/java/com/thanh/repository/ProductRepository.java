@@ -10,6 +10,9 @@ public interface ProductRepository extends CrudRepository<Product,Integer> {
     @Query("select p from Product p where p.name like %?1% ")
     List<Product> getBySearch(String name);
 
+    @Query("select p.category.categoryName, sum(p.quantity),sum(p.quantity * p.price) ,min (p.price),max (p.price),avg (p.price)from Product p group by p.category.categoryName")
+    List<Object[]> inventory();
+
     @Query(nativeQuery=true,value="select p.* from products p join orderdetails o on p.id=o.productId group by o.productId order by sum(o.quantity) desc limit 6")
     List<Product>sellALot();
 

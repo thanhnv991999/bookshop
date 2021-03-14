@@ -13,8 +13,8 @@
     <http pattern="/account/login" security="none"/>
     <http pattern="/account/register" security="none"/>
     <http pattern="/account/forget" security="none"/>
+    <http pattern="/account/active/**" security="none"/>
     <http use-expressions="true">
-
         <intercept-url pattern="/account/**" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/order/**" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>

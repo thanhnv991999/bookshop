@@ -75,28 +75,32 @@ public class AccountController {
 
     @GetMapping("/account/active/{id}")
     public String register(Model model,@PathVariable("id") int id){
-        Optional<Customer> activeCustomer= customer.findById(id);
-        activeCustomer.get().setActivated(true);
-        Customer cus=CustomerConvert.customerConvert(activeCustomer);
-        customer.update(cus);
+        Role role = new Role();
+        role.setRole_ID(2);
+        Customer activeCustomer= customer.findById(id).get();
+        activeCustomer.setActivated(true);
+        activeCustomer.setRole(role);
+        customer.update(activeCustomer);
         return "redirect:/account/login";
     }
 
     @PostMapping("/account/register")
     public String register(Model model,@ModelAttribute("form") Customer customerDTO) throws MessagingException {
         Role role = new Role();
-        role.setRole_ID(2);
+        role.setRole_ID(0);
         customerDTO.setActivated(false);
         customerDTO.setRole(role);
         customer.create(customerDTO);
-        model.addAttribute("mess","Success");
+        model.addAttribute("mess","Thành Công");
         String from="bookshop@shopbook.com";
         String to = customerDTO.getEmail();
         String subject="REGISTER ACCOUNT";
         Customer customerActive=customer.findByUserPass(customerDTO.getUserName(),customerDTO.getPassWord());
         //
         String url=request.getRequestURL().toString().replace("register","active/"+customerActive.getId());
-        String body="click xác thực thông tin : <a href='"+url+"'>Xác nhận</a> ";
+        String body="Username :'"+ customerActive.getUserName() +"'" +
+                "<br> Password :'"+ customerActive.getPassWord() +"'"+
+                "<br><b>Click xác thực thông tin :</b> <a href='"+url+"'>Xác nhận</a> ";
         MailInfo mailInfo = new MailInfo(from,to,subject,body);
         mail.send(mailInfo);
         return "/account/register";
