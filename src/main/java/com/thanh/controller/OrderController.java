@@ -1,6 +1,5 @@
 package com.thanh.controller;
 
-import com.thanh.convert.ProductConvert;
 import com.thanh.entity.Customer;
 import com.thanh.entity.Order;
 import com.thanh.entity.OrderDetail;

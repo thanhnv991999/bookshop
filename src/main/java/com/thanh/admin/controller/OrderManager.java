@@ -1,6 +1,5 @@
 package com.thanh.admin.controller;
 
-import com.thanh.convert.OrderConvert;
 import com.thanh.entity.Order;
 import com.thanh.entity.OrderDetail;
 import com.thanh.services.OrderDetailImpl;
@@ -35,10 +34,9 @@ public class OrderManager {
     }
     @RequestMapping("/admin/order/status/{id}")
     public String status(Model model,@PathVariable("id") int id){
-        Optional<Order> or= order.findById(id);
-        Order orderConver = OrderConvert.orderConvert(or);
-        orderConver.setStatus(true);
-        order.create(orderConver);
+        Order or= order.findById(id).get();
+        or.setStatus(true);
+        order.create(or);
         model.addAttribute("orderList",order.lists());
         return "/admin/order/index";
     }

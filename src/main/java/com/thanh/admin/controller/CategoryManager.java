@@ -1,6 +1,5 @@
 package com.thanh.admin.controller;
 
-import com.thanh.convert.CategoryConvert;
 import com.thanh.entity.Category;
 import com.thanh.services.CategoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +35,7 @@ public class CategoryManager {
 
     @RequestMapping("/admin/category/edit/{id}")
     public String edit(@PathVariable("id")int id,Model model){
-        Optional<Category> cate = category.findById(id);
-        Category cateCv = CategoryConvert.categoryConvert(cate);
+        Category cate = category.findById(id).get();
         model.addAttribute("categoryDTO",cate);
         model.addAttribute("listCate",category.lists());
         return "/admin/category/index";

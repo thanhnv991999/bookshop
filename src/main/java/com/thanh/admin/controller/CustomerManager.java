@@ -1,6 +1,5 @@
 package com.thanh.admin.controller;
 
-import com.thanh.convert.CustomerConvert;
 import com.thanh.entity.Customer;
 import com.thanh.services.CustomerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +36,8 @@ public class CustomerManager {
 
     @RequestMapping("/admin/customer/edit/{id}")
     public String edit(@PathVariable("id")int id, Model model){
-        Optional<Customer> cus = customer.findById(id);
-        Customer customerConvert = CustomerConvert.customerConvert(cus);
-        model.addAttribute("customerDTO",customerConvert);
+        Customer cus = customer.findById(id).get();
+        model.addAttribute("customerDTO",cus);
         model.addAttribute("listCustomer",customer.lists());
         return "/admin/customer/index";
 

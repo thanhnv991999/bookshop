@@ -2,7 +2,6 @@ package com.thanh.controller;
 
 import com.thanh.DTO.CustomerDTO;
 import com.thanh.bean.MailInfo;
-import com.thanh.convert.CustomerConvert;
 import com.thanh.entity.Customer;
 import com.thanh.entity.Role;
 import com.thanh.services.CookieService;
@@ -162,11 +161,10 @@ public class AccountController {
     }
     @PostMapping("/account/change")
     public String change(@ModelAttribute("CusDTO") CustomerDTO customerDTO, Model model){
-        Optional<Customer> cus = customer.findById(customerDTO.getId());
-        Customer cusConver=CustomerConvert.customerConvert(cus);
-        if(cusConver.getPassWord().equals(customerDTO.getPassOld())){
-            cusConver.setPassWord(customerDTO.getPassNew());
-            customer.create(cusConver);
+        Customer cus = customer.findById(customerDTO.getId()).get();
+        if(cus.getPassWord().equals(customerDTO.getPassOld())){
+            cus.setPassWord(customerDTO.getPassNew());
+            customer.create(cus);
             model.addAttribute("mess","Đổi mật khẩu thành công");
         }else {
             model.addAttribute("errol","Sai mật khẩu!");

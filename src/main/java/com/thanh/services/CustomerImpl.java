@@ -1,6 +1,5 @@
 package com.thanh.services;
 
-import com.thanh.convert.CustomerConvert;
 import com.thanh.entity.Customer;
 import com.thanh.repository.CustomerRepository;
 import com.thanh.services.Interface.CustomerIF;

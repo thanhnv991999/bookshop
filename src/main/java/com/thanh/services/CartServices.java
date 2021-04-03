@@ -1,6 +1,5 @@
 package com.thanh.services;
 
-import com.thanh.convert.ProductConvert;
 import com.thanh.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +8,6 @@ import org.springframework.web.context.annotation.SessionScope;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 @SessionScope
 @Service
@@ -20,10 +18,9 @@ public class CartServices {
     Map<Integer, Product> map = new HashMap<>();
     public void add(int id){
         Product p = map.get(id);
-        Optional<Product> prConvert= product.findById(id);
-        Product product = ProductConvert.prdConvert(prConvert);
+        Product productid= product.findById(id).get();
         if(p==null){
-            p=product;
+            p=productid;
             p.setQuantity(1);
             map.put(id,p);
         }else {

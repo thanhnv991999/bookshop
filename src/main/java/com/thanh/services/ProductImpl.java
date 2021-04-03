@@ -1,6 +1,4 @@
 package com.thanh.services;
-
-import com.thanh.convert.ProductConvert;
 import com.thanh.entity.Product;
 import com.thanh.repository.ProductRepository;
 import com.thanh.services.Interface.ProductIF;
@@ -36,19 +34,18 @@ public class ProductImpl implements ProductIF {
 
     @Override
     public void update(Product product) {
-        Optional<Product> prd = productRepository.findById(product.getId());
-        prd.get().setImage(product.getImage());
-        prd.get().setAvailable(product.isAvailable());
-        prd.get().setSpecial(product.isSpecial());
-        prd.get().setDiscount(product.getDiscount());
-        prd.get().setQuantity(product.getQuantity());
-        prd.get().setViewCount(product.getViewCount());
-        prd.get().setPrice(product.getPrice());
-        prd.get().setName(product.getName());
-        prd.get().setDescription(product.getDescription());
-        prd.get().setCategory(product.getCategory());
-        Product product1=ProductConvert.prdConvert(prd);
-        productRepository.save(product1);
+        Product prd = productRepository.findById(product.getId()).get();
+        prd.setImage(product.getImage());
+        prd.setAvailable(product.isAvailable());
+        prd.setSpecial(product.isSpecial());
+        prd.setDiscount(product.getDiscount());
+        prd.setQuantity(product.getQuantity());
+        prd.setViewCount(product.getViewCount());
+        prd.setPrice(product.getPrice());
+        prd.setName(product.getName());
+        prd.setDescription(product.getDescription());
+        prd.setCategory(product.getCategory());
+        productRepository.save(prd);
     }
     @Override
     public List<Product> search(String name) {

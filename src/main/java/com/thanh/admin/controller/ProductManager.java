@@ -1,6 +1,5 @@
 package com.thanh.admin.controller;
 
-import com.thanh.convert.ProductConvert;
 import com.thanh.services.ProductImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,9 +39,8 @@ public class ProductManager {
 
     @RequestMapping("/admin/product/edit/{id}")
     public String edit(@PathVariable("id")int id, Model model){
-        Optional<Product> prd = product.findById(id);
-        Product productConvert = ProductConvert.prdConvert(prd);
-        model.addAttribute("productDTO",productConvert);
+        Product prd = product.findById(id).get();
+        model.addAttribute("productDTO",prd);
         model.addAttribute("listProduct",product.lists());
         return "/admin/product/index";
 

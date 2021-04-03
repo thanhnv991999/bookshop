@@ -1,6 +1,5 @@
 package com.thanh.services;
 
-import com.thanh.convert.CategoryConvert;
 import com.thanh.entity.Category;
 import com.thanh.repository.CategoryRepository;
 import com.thanh.services.Interface.CategoryIF;
@@ -37,9 +36,8 @@ public class CategoryImpl implements CategoryIF {
 
     @Override
     public void update(Category category) {
-        Optional<Category> cate = categoryRepository.findById(category.getId());
-        Category category1 = CategoryConvert.categoryConvert(cate);
-        category1.setCategoryName(category.getCategoryName());
-        categoryRepository.save(category1);
+        Category cate = categoryRepository.findById(category.getId()).get();
+        cate.setCategoryName(category.getCategoryName());
+        categoryRepository.save(cate);
     }
 }
